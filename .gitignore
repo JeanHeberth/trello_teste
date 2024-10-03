@@ -24,3 +24,6 @@ log/
 *.iml
 *.iprj
 *.iws
+
+# Arquivos do MAC
+.DS_Store
