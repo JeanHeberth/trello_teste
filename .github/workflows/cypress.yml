@@ -3,22 +3,20 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - main  # ou a branch que você deseja monitorar
+      - main
   pull_request:
     branches:
-      - main  # ou a branch que você deseja monitorar
+      - main
 
 jobs:
   cypress:
     runs-on: ubuntu-latest
 
     services:
-      xvfb:
-        image: 'x11vnc/x11vnc:latest'
+      cypress:
+        image: cypress/browsers:node16.19.1-chrome116-ff116
         options: >-
-          --cap-add=SYS_ADMIN
-          --cap-add=SYS_PTRACE
-          --name=xvfb
+          --shm-size=2g
         ports:
           - 5900:5900
 
