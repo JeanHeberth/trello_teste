@@ -12,14 +12,6 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
 
-    services:
-      cypress:
-        image: cypress/browsers:node16.19.1-chrome116-ff116
-        options: >-
-          --shm-size=2g
-        ports:
-          - 5900:5900
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -27,11 +19,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'
+          node-version: '16' # Altere para a versão do Node.js que você usa
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npx cypress run --headless
 
