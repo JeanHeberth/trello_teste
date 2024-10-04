@@ -4,15 +4,15 @@ let boardId;
 let cardId;
 let listId;
 
-const listName = 'Lista Serasa';
-const boardName = 'Quadro Serasa';
-const cardName = 'Card Serasa';
-const apiKey = "c3f6e8563d3950aa5adef74b3828ebfa";
-const token = "ATTAa1bcd847e7b62f64695857e7e4d8d005ac3c0086cd56219a14d56d3973f9f83f0A2C5CD1";
+const listName = Cypress.env('listName');
+const boardName = Cypress.env('boardName');
+const cardName = Cypress.env('cardName');
+const apiKey = Cypress.env('apiKey');
+const token = Cypress.env('token');
 
 describe('Trello API Tests', () => {
 
-      it('Cadastrar um board', () => {
+    it('Cadastrar um board', () => {
         cy.request({
             method: 'POST',
             url: `/boards/?name=${boardName}&key=${apiKey}&token=${token}`,
@@ -30,7 +30,7 @@ describe('Trello API Tests', () => {
         }).then((response) => {
             expect(response.status).to.eq(200);
             expect(response.body.name).to.eq(listName);
-            listId = response.body.id; // Armazenar ID da lista
+            listId = response.body.id;
         });
     });
 
@@ -41,7 +41,7 @@ describe('Trello API Tests', () => {
             url: `cards?key=${apiKey}&token=${token}`,
             body: {
                 name: cardName,
-                idList: listId, // Usar idList, não idBoard
+                idList: listId,
             },
         }).then((response) => {
             expect(response.status).to.eq(200);
