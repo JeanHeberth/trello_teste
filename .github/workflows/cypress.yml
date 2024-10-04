@@ -1,0 +1,39 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - main  # ou a branch que você deseja monitorar
+  pull_request:
+    branches:
+      - main  # ou a branch que você deseja monitorar
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    services:
+      xvfb:
+        image: 'x11vnc/x11vnc:latest'
+        options: >-
+          --cap-add=SYS_ADMIN
+          --cap-add=SYS_PTRACE
+          --name=xvfb
+        ports:
+          - 5900:5900
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
+        run: npx cypress run
+
